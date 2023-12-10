@@ -10,6 +10,8 @@
     - Hierarquias:
         - Geográfica de Empresa:
             - Níveis: Cidade < Estado < Região < País
+        - Grupo Econômico:
+            - Níveis: Empresa < Grupo Econômico
 
 - **Ramo:**
     - Inputs:
