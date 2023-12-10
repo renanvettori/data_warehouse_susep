@@ -51,3 +51,7 @@
     - Lucratividade: [Prêmio Ganho] - [Sinistros Ocorridos]
     - Rentabilidade: ([Lucratividade]/[Prêmio Ganho])*100
     - Resultado de Resseguro ([Receitas com Resseguros] - [Despesas com Resseguros])
+
+## Criação do Data Warehouse
+![Esquema Power Architect](images\dw_schema_power_architect.png)
+![Esquema SQL Server](images\dw_schema_sql_server.png)
