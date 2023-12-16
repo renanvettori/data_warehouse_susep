@@ -3,15 +3,20 @@
     - Inputs:
         - Código da Empresa
         - Nome da Empresa
+        - Patrimônio Líquido Ajustado
+        - Limite de Retenção para Seguro Garantia
+        - Limite de Retenção para Fiança Locatícia
     - Atributos:
-        - Tipo de Dependência (Filial, Representante...)
-        - Porte (por Patrimônio Líquido Ajustado)
-        - Faixa de Limite de Retenção 
+        - Porte (baseado no Patrimônio Líquido Ajustado)
+        - Nível de Exposição ao Risco de Seguro Garantia (baseado no Limite de Retenção)
+        - Nível de Exposição ao Risco de Fiança Locatícia
     - Hierarquias:
-        - Geográfica de Empresa:
-            - Níveis: Cidade < Estado < Região < País
         - Grupo Econômico:
             - Níveis: Empresa < Grupo Econômico
+    - Arquivos:
+        - Ses_grupos_economicos.csv
+        - Ses_limite_ret.csv
+        - Ses_pl_margem.csv
 
 - **Ramo:**
     - Inputs:
@@ -22,6 +27,9 @@
     - Hierarquia:
         - Grupamento de Ramo:
             - Níveis: Ramo < Grupo
+    - Arquivos:
+        - Ses_ramos.csv
+        - ses_gruposramos.csv
 
 - **Tempo:**
     - Inputs:
@@ -55,3 +63,4 @@
 ## Criação do Data Warehouse
 ![Esquema Power Architect](images\dw_schema_power_architect.png)
 ![Esquema SQL Server](images\dw_schema_sql_server.png)
+![Quartis Patrimônio Líquido](images\quartis_pl.png)
