@@ -1,0 +1,1 @@
+(DT_STR, 25, 1252)(plajustado_transformado <= 17423287.2 ? "Iniciante" : plajustado_transformado <= 90166348.36 ? "Intermediário" : plajustado_transformado <= 309270786.5 ? "Consolidado" : "Líder")

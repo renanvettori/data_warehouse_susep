@@ -11,8 +11,8 @@
   DTS:LocaleID="3081"
   DTS:ObjectName="CargaDataWarehouse"
   DTS:PackageType="5"
-  DTS:VersionBuild="107"
-  DTS:VersionGUID="{8C368824-668A-4633-BE2A-7F9C790DD393}">
+  DTS:VersionBuild="115"
+  DTS:VersionGUID="{9B69EBA2-6840-4E38-AF79-6BEEEBD2B25D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -292,7 +292,7 @@
       DTS:Description="Tarefa Fluxo de Dados"
       DTS:DTSID="{422BC0D6-EA67-4D0A-9CEB-87AA4482AA79}"
       DTS:ExecutableType="Microsoft.Pipeline"
-      DTS:LocaleID="-1"
+      DTS:LocaleID="1046"
       DTS:ObjectName="Carga da Dimensão Empresa"
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
@@ -715,7 +715,7 @@
                     </inputColumn>
                     <inputColumn
                       refId="Package\Carga da Dimensão Empresa\Classificar por coenti.Inputs[Classificar Entrada].Columns[plajustado_convertido]"
-                      cachedDataType="r8"
+                      cachedDataType="cy"
                       cachedName="plajustado_convertido"
                       lineageId="Package\Carga da Dimensão Empresa\Selecionando apenas os valores de pl maiores (para as duplicatas).Outputs[Saída de Agregação 1].Columns[plajustado_convertido]">
                       <properties>
@@ -757,7 +757,7 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\Carga da Dimensão Empresa\Classificar por coenti.Outputs[Classificar Saída].Columns[plajustado_convertido]"
-                      dataType="r8"
+                      dataType="cy"
                       lineageId="Package\Carga da Dimensão Empresa\Classificar por coenti.Outputs[Classificar Saída].Columns[plajustado_convertido]"
                       name="plajustado_convertido">
                       <properties>
@@ -1583,7 +1583,7 @@
                   <outputColumns>
                     <outputColumn
                       refId="Package\Carga da Dimensão Empresa\Convertendo pl para agregação.Outputs[Saída de Conversão de Dados].Columns[plajustado_convertido]"
-                      dataType="r8"
+                      dataType="cy"
                       errorOrTruncationOperation="Conversão"
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Carga da Dimensão Empresa\Convertendo pl para agregação.Outputs[Saída de Conversão de Dados].Columns[plajustado_convertido]"
@@ -1621,6 +1621,88 @@
                       refId="Package\Carga da Dimensão Empresa\Convertendo pl para agregação.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\Carga da Dimensão Empresa\Convertendo pl para agregação.Outputs[Saída de Erro de Conversão de Dados].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga da Dimensão Empresa\Criando atributo Porte"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Coluna Derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;0"
+              description="Cria novos valores de coluna aplicando expressões a colunas de entrada da transformação. Crie novas colunas ou substitua as existentes. Por exemplo, concatene os valores das colunas 'first name' e 'last name' para formar uma coluna 'full name'."
+              name="Criando atributo Porte"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Inputs[Entrada de Coluna Derivada]"
+                  description="Entrada para a Transformação Coluna Derivada"
+                  name="Entrada de Coluna Derivada">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Inputs[Entrada de Coluna Derivada].Columns[plajustado_transformado]"
+                      cachedDataType="cy"
+                      cachedName="plajustado_transformado"
+                      lineageId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[plajustado_transformado]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Coluna Derivada]"
+                  description="Saída Padrão da Transformação Coluna Derivada"
+                  exclusionGroup="1"
+                  name="Saída de Coluna Derivada"
+                  synchronousInputId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Inputs[Entrada de Coluna Derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Coluna Derivada].Columns[atr_porte]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computação"
+                      errorRowDisposition="FailComponent"
+                      length="25"
+                      lineageId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Coluna Derivada].Columns[atr_porte]"
+                      name="atr_porte"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expressão de Coluna Derivada"
+                          name="Expression">(DT_STR,25,1252)(#{Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[plajustado_transformado]} &lt;= 17423287.2 ? "Iniciante" : #{Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[plajustado_transformado]} &lt;= 90166348.36 ? "Intermediário" : #{Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[plajustado_transformado]} &lt;= 309270786.5 ? "Consolidado" : "Líder")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expressão Amigável de Coluna Derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,25,1252)(plajustado_transformado &lt;= 17423287.2 ? "Iniciante" : plajustado_transformado &lt;= 90166348.36 ? "Intermediário" : plajustado_transformado &lt;= 309270786.5 ? "Consolidado" : "Líder")</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Erro de Coluna Derivada]"
+                  description="Saída de Erro da Transformação Coluna Derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Saída de Erro de Coluna Derivada"
+                  synchronousInputId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Inputs[Entrada de Coluna Derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Erro de Coluna Derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Erro de Coluna Derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Erro de Coluna Derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Erro de Coluna Derivada].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -1701,27 +1783,13 @@
                   name="Entrada de Destino OLE DB">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[plajustado_transformado]"
-                      cachedDataType="r8"
-                      cachedName="plajustado_transformado"
-                      externalMetadataColumnId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[plajustado]"
-                      lineageId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[plajustado_transformado]" />
-                    <inputColumn
-                      refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[nogrupo]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="200"
-                      cachedName="nogrupo"
-                      externalMetadataColumnId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[desc_grupo]"
-                      lineageId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[nogrupo]" />
-                    <inputColumn
-                      refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[cogrupo]"
+                      refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[atr_porte]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="25"
-                      cachedName="cogrupo"
-                      externalMetadataColumnId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[cod_grupo]"
-                      lineageId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[cogrupo]" />
+                      cachedName="atr_porte"
+                      externalMetadataColumnId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[atr_porte]"
+                      lineageId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Coluna Derivada].Columns[atr_porte]" />
                     <inputColumn
                       refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[coenti]"
                       cachedCodepage="1252"
@@ -1739,6 +1807,28 @@
                       cachedName="noenti"
                       externalMetadataColumnId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[desc_empresa]"
                       lineageId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[noenti]" />
+                    <inputColumn
+                      refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[cogrupo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="cogrupo"
+                      externalMetadataColumnId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[cod_grupo]"
+                      lineageId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[cogrupo]" />
+                    <inputColumn
+                      refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[nogrupo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="nogrupo"
+                      externalMetadataColumnId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[desc_grupo]"
+                      lineageId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[nogrupo]" />
+                    <inputColumn
+                      refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[plajustado_transformado]"
+                      cachedDataType="cy"
+                      cachedName="plajustado_transformado"
+                      externalMetadataColumnId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[plajustado]"
+                      lineageId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[plajustado_transformado]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1768,10 +1858,14 @@
                       name="desc_grupo" />
                     <externalMetadataColumn
                       refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[plajustado]"
+                      dataType="r8"
+                      name="plajustado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[atr_porte]"
                       codePage="1252"
                       dataType="str"
-                      length="200"
-                      name="plajustado" />
+                      length="25"
+                      name="atr_porte" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -2062,7 +2156,7 @@
                       lineageId="Package\Carga da Dimensão Empresa\Classificar por coenti.Outputs[Classificar Saída].Columns[coenti]" />
                     <inputColumn
                       refId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Inputs[Entrada Direita da Junção de Mesclagem].Columns[plajustado_transformado]"
-                      cachedDataType="r8"
+                      cachedDataType="cy"
                       cachedName="plajustado_transformado"
                       lineageId="Package\Carga da Dimensão Empresa\Transformando zeros em nulos.Outputs[Saída de Coluna Derivada].Columns[plajustado_transformado]" />
                   </inputColumns>
@@ -2151,7 +2245,7 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[plajustado_transformado]"
-                      dataType="r8"
+                      dataType="cy"
                       lineageId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem].Columns[plajustado_transformado]"
                       name="plajustado_transformado">
                       <properties>
@@ -2785,7 +2879,7 @@
                       lineageId="Package\Carga da Dimensão Empresa\Recuperando demais colunas.Outputs[Saída da Junção de Mesclagem].Columns[coenti]" />
                     <inputColumn
                       refId="Package\Carga da Dimensão Empresa\Selecionando apenas os valores de pl maiores (para as duplicatas).Inputs[Entrada de Agregação 1].Columns[plajustado_convertido]"
-                      cachedDataType="r8"
+                      cachedDataType="cy"
                       cachedName="plajustado_convertido"
                       lineageId="Package\Carga da Dimensão Empresa\Convertendo pl para agregação.Outputs[Saída de Conversão de Dados].Columns[plajustado_convertido]" />
                   </inputColumns>
@@ -2838,7 +2932,7 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\Carga da Dimensão Empresa\Selecionando apenas os valores de pl maiores (para as duplicatas).Outputs[Saída de Agregação 1].Columns[plajustado_convertido]"
-                      dataType="r8"
+                      dataType="cy"
                       lineageId="Package\Carga da Dimensão Empresa\Selecionando apenas os valores de pl maiores (para as duplicatas).Outputs[Saída de Agregação 1].Columns[plajustado_convertido]"
                       name="plajustado_convertido">
                       <properties>
@@ -2882,7 +2976,7 @@
                   <inputColumns>
                     <inputColumn
                       refId="Package\Carga da Dimensão Empresa\Transformando zeros em nulos.Inputs[Entrada de Coluna Derivada].Columns[plajustado_convertido]"
-                      cachedDataType="r8"
+                      cachedDataType="cy"
                       cachedName="plajustado_convertido"
                       lineageId="Package\Carga da Dimensão Empresa\Classificar por coenti.Outputs[Classificar Saída].Columns[plajustado_convertido]" />
                   </inputColumns>
@@ -2899,7 +2993,7 @@
                   <outputColumns>
                     <outputColumn
                       refId="Package\Carga da Dimensão Empresa\Transformando zeros em nulos.Outputs[Saída de Coluna Derivada].Columns[plajustado_transformado]"
-                      dataType="r8"
+                      dataType="cy"
                       errorOrTruncationOperation="Computação"
                       errorRowDisposition="FailComponent"
                       lineageId="Package\Carga da Dimensão Empresa\Transformando zeros em nulos.Outputs[Saída de Coluna Derivada].Columns[plajustado_transformado]"
@@ -2910,13 +3004,13 @@
                           containsID="true"
                           dataType="System.String"
                           description="Expressão de Coluna Derivada"
-                          name="Expression">#{Package\Carga da Dimensão Empresa\Classificar por coenti.Outputs[Classificar Saída].Columns[plajustado_convertido]} == 0 ? NULL(DT_R8) : #{Package\Carga da Dimensão Empresa\Classificar por coenti.Outputs[Classificar Saída].Columns[plajustado_convertido]}</property>
+                          name="Expression">#{Package\Carga da Dimensão Empresa\Classificar por coenti.Outputs[Classificar Saída].Columns[plajustado_convertido]} == 0 ? NULL(DT_CY) : #{Package\Carga da Dimensão Empresa\Classificar por coenti.Outputs[Classificar Saída].Columns[plajustado_convertido]}</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Expressão Amigável de Coluna Derivada"
                           expressionType="Notify"
-                          name="FriendlyExpression">plajustado_convertido == 0 ? NULL(DT_R8) : plajustado_convertido</property>
+                          name="FriendlyExpression">plajustado_convertido == 0 ? NULL(DT_CY) : plajustado_convertido</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -2995,11 +3089,6 @@
               name="Multicast Saída 1"
               startId="Package\Carga da Dimensão Empresa\Duplicando.Outputs[Multicast Saída 1]" />
             <path
-              refId="Package\Carga da Dimensão Empresa.Paths[Saída da Junção de Mesclagem]"
-              endId="Package\Carga da Dimensão Empresa\Convertendo pl para agregação.Inputs[Entrada de Conversão de Dados]"
-              name="Saída da Junção de Mesclagem"
-              startId="Package\Carga da Dimensão Empresa\Recuperando demais colunas.Outputs[Saída da Junção de Mesclagem]" />
-            <path
               refId="Package\Carga da Dimensão Empresa.Paths[Saída da Junção de Mesclagem1]"
               endId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Inputs[Entrada Esquerda da Junção de Mesclagem]"
               name="Saída da Junção de Mesclagem"
@@ -3010,7 +3099,12 @@
               name="Saída da Junção de Mesclagem"
               startId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Outputs[Saída da Junção de Mesclagem]" />
             <path
-              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 12]"
+              refId="Package\Carga da Dimensão Empresa.Paths[Saída da Junção de Mesclagem]"
+              endId="Package\Carga da Dimensão Empresa\Convertendo pl para agregação.Inputs[Entrada de Conversão de Dados]"
+              name="Saída da Junção de Mesclagem"
+              startId="Package\Carga da Dimensão Empresa\Recuperando demais colunas.Outputs[Saída da Junção de Mesclagem]" />
+            <path
+              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 1]"
               endId="Package\Carga da Dimensão Empresa\Classificar por coenti.Inputs[Classificar Entrada]"
               name="Saída de Agregação 1"
               startId="Package\Carga da Dimensão Empresa\Selecionando apenas os valores de pl maiores (para as duplicatas).Outputs[Saída de Agregação 1]" />
@@ -3020,27 +3114,32 @@
               name="Saída de Agregação 1"
               startId="Package\Carga da Dimensão Empresa\Selecionando apenas as infos recentes.Outputs[Saída de Agregação 1]" />
             <path
-              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 1]"
+              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 12]"
               endId="Package\Carga da Dimensão Empresa\Classificando para Junção.Inputs[Classificar Entrada]"
               name="Saída de Agregação 1"
               startId="Package\Carga da Dimensão Empresa\Selecionando apenas as linhas com as infos mais recentes.Outputs[Saída de Agregação 1]" />
+            <path
+              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Coluna Derivada1]"
+              endId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Inputs[Entrada de Coluna Derivada]"
+              name="Saída de Coluna Derivada"
+              startId="Package\Carga da Dimensão Empresa\Formatando nome das empresas e grupo.Outputs[Saída de Coluna Derivada]" />
             <path
               refId="Package\Carga da Dimensão Empresa.Paths[Saída de Coluna Derivada]"
               endId="Package\Carga da Dimensão Empresa\Junção de Mesclagem.Inputs[Entrada Direita da Junção de Mesclagem]"
               name="Saída de Coluna Derivada"
               startId="Package\Carga da Dimensão Empresa\Transformando zeros em nulos.Outputs[Saída de Coluna Derivada]" />
             <path
-              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Coluna Derivada1]"
+              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Coluna Derivada2]"
               endId="Package\Carga da Dimensão Empresa\Destino OLE DB.Inputs[Entrada de Destino OLE DB]"
               name="Saída de Coluna Derivada"
-              startId="Package\Carga da Dimensão Empresa\Formatando nome das empresas e grupo.Outputs[Saída de Coluna Derivada]" />
+              startId="Package\Carga da Dimensão Empresa\Criando atributo Porte.Outputs[Saída de Coluna Derivada]" />
             <path
-              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Conversão de Dados1]"
+              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Conversão de Dados]"
               endId="Package\Carga da Dimensão Empresa\Classificando por data da informação e empresa.Inputs[Classificar Entrada]"
               name="Saída de Conversão de Dados"
               startId="Package\Carga da Dimensão Empresa\Convertendo a coluna data da informação.Outputs[Saída de Conversão de Dados]" />
             <path
-              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Conversão de Dados]"
+              refId="Package\Carga da Dimensão Empresa.Paths[Saída de Conversão de Dados1]"
               endId="Package\Carga da Dimensão Empresa\Selecionando apenas os valores de pl maiores (para as duplicatas).Inputs[Entrada de Agregação 1]"
               name="Saída de Conversão de Dados"
               startId="Package\Carga da Dimensão Empresa\Convertendo pl para agregação.Outputs[Saída de Conversão de Dados]" />
@@ -3069,7 +3168,7 @@
       DTS:Description="Tarefa Fluxo de Dados"
       DTS:DTSID="{73399B1C-AEC3-4095-B52A-A4600347707C}"
       DTS:ExecutableType="Microsoft.Pipeline"
-      DTS:LocaleID="-1"
+      DTS:LocaleID="1046"
       DTS:ObjectName="Carga da Dimensão Ramo"
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
@@ -5390,13 +5489,49 @@
       <GraphLayout
         Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="291,42"
+          Id="Package\Carga da Dimensão Empresa\Classificar por data da informação e empresa"
+          TopLeft="77,183" />
+        <NodeLayout
+          Size="353,42"
+          Id="Package\Carga da Dimensão Empresa\Selecionando apenas as linhas com as infos mais recentes"
+          TopLeft="0,347" />
+        <NodeLayout
+          Size="326,42"
+          Id="Package\Carga da Dimensão Empresa\Conexão com o arquivo Ses_grupos_economicos csv"
+          TopLeft="72,31" />
+        <NodeLayout
           Size="216,42"
           Id="Package\Carga da Dimensão Empresa\Recuperando demais colunas"
           TopLeft="997,411" />
         <NodeLayout
-          Size="296,42"
-          Id="Package\Carga da Dimensão Empresa\Duplicando os dados para agregação e junção"
-          TopLeft="75,263" />
+          Size="360,42"
+          Id="Package\Carga da Dimensão Empresa\Convertendo a coluna data da informação de string para int"
+          TopLeft="62,110" />
+        <NodeLayout
+          Size="392,42"
+          Id="Package\Carga da Dimensão Empresa\Selecionando apenas os valores de pl maiores (para as duplicatas)"
+          TopLeft="777,569" />
+        <NodeLayout
+          Size="260,42"
+          Id="Package\Carga da Dimensão Empresa\Selecionando apenas as infos recentes"
+          TopLeft="771,350" />
+        <NodeLayout
+          Size="225,42"
+          Id="Package\Carga da Dimensão Empresa\Transformando zeros em nulos"
+          TopLeft="303,548" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Carga da Dimensão Empresa\Classificar por coenti"
+          TopLeft="574,562" />
+        <NodeLayout
+          Size="273,42"
+          Id="Package\Carga da Dimensão Empresa\Formatando nome das empresas e grupo"
+          TopLeft="18,639" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\Carga da Dimensão Empresa\Junção de Mesclagem"
+          TopLeft="71,560" />
         <NodeLayout
           Size="305,42"
           Id="Package\Carga da Dimensão Empresa\Classificando por data da informação e empresa"
@@ -5406,53 +5541,415 @@
           Id="Package\Carga da Dimensão Empresa\Convertendo a coluna data da informação"
           TopLeft="890,118" />
         <NodeLayout
-          Size="326,42"
-          Id="Package\Carga da Dimensão Empresa\Conexão com o arquivo Ses_grupos_economicos csv"
-          TopLeft="72,31" />
-        <NodeLayout
-          Size="392,42"
-          Id="Package\Carga da Dimensão Empresa\Selecionando apenas os valores de pl maiores (para as duplicatas)"
-          TopLeft="777,569" />
+          Size="227,42"
+          Id="Package\Carga da Dimensão Empresa\Convertendo pl para agregação"
+          TopLeft="938,489" />
         <NodeLayout
           Size="335,42"
           Id="Package\Carga da Dimensão Empresa\Recuperando as demais infos das linhas mais recentes"
           TopLeft="351,402" />
         <NodeLayout
-          Size="131,42"
-          Id="Package\Carga da Dimensão Empresa\Duplicando"
-          TopLeft="963,273" />
-        <NodeLayout
           Size="287,42"
           Id="Package\Carga da Dimensão Empresa\Conexão com o arquivo Ses_pl_margem csv"
           TopLeft="879,37" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\Carga da Dimensão Empresa\Duplicando"
+          TopLeft="963,273" />
         <NodeLayout
           Size="184,42"
           Id="Package\Carga da Dimensão Empresa\Classificar para junção"
           TopLeft="771,419" />
         <NodeLayout
-          Size="353,42"
-          Id="Package\Carga da Dimensão Empresa\Selecionando apenas as linhas com as infos mais recentes"
-          TopLeft="0,347" />
+          Size="296,42"
+          Id="Package\Carga da Dimensão Empresa\Duplicando os dados para agregação e junção"
+          TopLeft="75,263" />
         <NodeLayout
           Size="200,42"
           Id="Package\Carga da Dimensão Empresa\Classificando para Junção"
           TopLeft="99,420" />
-        <NodeLayout
-          Size="227,42"
-          Id="Package\Carga da Dimensão Empresa\Convertendo pl para agregação"
-          TopLeft="938,489" />
-        <NodeLayout
-          Size="291,42"
-          Id="Package\Carga da Dimensão Empresa\Classificar por data da informação e empresa"
-          TopLeft="77,183" />
-        <NodeLayout
-          Size="260,42"
-          Id="Package\Carga da Dimensão Empresa\Selecionando apenas as infos recentes"
-          TopLeft="771,350" />
-        <NodeLayout
-          Size="360,42"
-          Id="Package\Carga da Dimensão Empresa\Convertendo a coluna data da informação de string para int"
-          TopLeft="62,110" />
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Conversão de Dados]"
+          TopLeft="1025.75,160">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Coluna Derivada]"
+          TopLeft="303,569">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-50,12"
+              Start="0,0"
+              End="-42.5,12">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-21,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-21,0"
+                    Point2="-25,0"
+                    Point3="-25,4" />
+                  <mssgle:LineSegment
+                    End="-25,8" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-25,8"
+                    Point2="-25,12"
+                    Point3="-29,12" />
+                  <mssgle:LineSegment
+                    End="-42.5,12" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 12]"
+          TopLeft="176.5,389">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22.5,31"
+              Start="0,0"
+              End="22.5,23.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.5"
+                    Point2="0,15.5"
+                    Point3="4,15.5" />
+                  <mssgle:LineSegment
+                    End="18.5,15.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.5,15.5"
+                    Point2="22.5,15.5"
+                    Point3="22.5,19.5" />
+                  <mssgle:LineSegment
+                    End="22.5,23.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 11]"
+          TopLeft="901,392">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-38,27"
+              Start="0,0"
+              End="-38,19.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.5"
+                    Point2="0,13.5"
+                    Point3="-4,13.5" />
+                  <mssgle:LineSegment
+                    End="-34,13.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-34,13.5"
+                    Point2="-38,13.5"
+                    Point3="-38,17.5" />
+                  <mssgle:LineSegment
+                    End="-38,19.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 1]"
+          TopLeft="777,586.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-27,0"
+              Start="0,0"
+              End="-19.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-19.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída da Junção de Mesclagem2]"
+          TopLeft="158.25,602">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37"
+              Start="0,0"
+              End="0,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída da Junção de Mesclagem1]"
+          TopLeft="518.5,444">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-356.5,116"
+              Start="0,0"
+              End="-356.5,108.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,54"
+                    Point2="0,58"
+                    Point3="-4,58" />
+                  <mssgle:LineSegment
+                    End="-352.5,58" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-352.5,58"
+                    Point2="-356.5,58"
+                    Point3="-356.5,62" />
+                  <mssgle:LineSegment
+                    End="-356.5,108.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída da Junção de Mesclagem]"
+          TopLeft="1105,453">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-53.5,36"
+              Start="0,0"
+              End="-53.5,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14"
+                    Point2="0,18"
+                    Point3="-4,18" />
+                  <mssgle:LineSegment
+                    End="-49.5,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-49.5,18"
+                    Point2="-53.5,18"
+                    Point3="-53.5,22" />
+                  <mssgle:LineSegment
+                    End="-53.5,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Multicast Saída 11]"
+          TopLeft="1008,315">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-107,35"
+              Start="0,0"
+              End="-107,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.2533936651584" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.2533936651584"
+                    Point2="0,14.2533936651584"
+                    Point3="-4,14.2533936651584" />
+                  <mssgle:LineSegment
+                    End="-103,14.2533936651584" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-103,14.2533936651584"
+                    Point2="-107,14.2533936651584"
+                    Point3="-107,18.2533936651584" />
+                  <mssgle:LineSegment
+                    End="-107,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Multicast Saída 1]"
+          TopLeft="175.75,305">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42"
+              Start="0,0"
+              End="0,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Classificar Saída4]"
+          TopLeft="574,583">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-46,-14"
+              Start="0,0"
+              End="-38.5,-14">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-19,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-19,0"
+                    Point2="-23,0"
+                    Point3="-23,-4" />
+                  <mssgle:LineSegment
+                    End="-23,-10" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-23,-10"
+                    Point2="-23,-14"
+                    Point3="-27,-14" />
+                  <mssgle:LineSegment
+                    End="-38.5,-14" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Classificar Saída3]"
+          TopLeft="1026,240">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga da Dimensão Empresa.Paths[Classificar Saída2]"
+          TopLeft="955,440">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="42,-8"
+              Start="0,0"
+              End="34.5,-8">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="17,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="17,0"
+                    Point2="21,0"
+                    Point3="21,-4" />
+                  <mssgle:LineSegment
+                    End="21,-4" />
+                  <mssgle:CubicBezierSegment
+                    Point1="21,-4"
+                    Point2="21,-8"
+                    Point3="25,-8" />
+                  <mssgle:LineSegment
+                    End="34.5,-8" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Carga da Dimensão Empresa.Paths[Classificar Saída1]"
           TopLeft="222.75,225">
@@ -5657,28 +6154,6 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Carga da Dimensão Empresa.Paths[Saída de Conversão de Dados1]"
-          TopLeft="1025.75,160">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,38"
-              Start="0,0"
-              End="0,30.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,30.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Conversão de Dados]"
           TopLeft="1051.5,531">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -5711,374 +6186,24 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 11]"
-          TopLeft="901,392">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-38,27"
-              Start="0,0"
-              End="-38,19.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,9.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,9.5"
-                    Point2="0,13.5"
-                    Point3="-4,13.5" />
-                  <mssgle:LineSegment
-                    End="-34,13.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-34,13.5"
-                    Point2="-38,13.5"
-                    Point3="-38,17.5" />
-                  <mssgle:LineSegment
-                    End="-38,19.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 1]"
-          TopLeft="176.5,389">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="22.5,31"
-              Start="0,0"
-              End="22.5,23.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,11.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,11.5"
-                    Point2="0,15.5"
-                    Point3="4,15.5" />
-                  <mssgle:LineSegment
-                    End="18.5,15.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="18.5,15.5"
-                    Point2="22.5,15.5"
-                    Point3="22.5,19.5" />
-                  <mssgle:LineSegment
-                    End="22.5,23.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Saída da Junção de Mesclagem]"
-          TopLeft="1105,453">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-53.5,36"
-              Start="0,0"
-              End="-53.5,28.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,14" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,14"
-                    Point2="0,18"
-                    Point3="-4,18" />
-                  <mssgle:LineSegment
-                    End="-49.5,18" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-49.5,18"
-                    Point2="-53.5,18"
-                    Point3="-53.5,22" />
-                  <mssgle:LineSegment
-                    End="-53.5,28.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Multicast Saída 11]"
-          TopLeft="1008,315">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-107,35"
-              Start="0,0"
-              End="-107,27.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,10.2533936651584" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.2533936651584"
-                    Point2="0,14.2533936651584"
-                    Point3="-4,14.2533936651584" />
-                  <mssgle:LineSegment
-                    End="-103,14.2533936651584" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-103,14.2533936651584"
-                    Point2="-107,14.2533936651584"
-                    Point3="-107,18.2533936651584" />
-                  <mssgle:LineSegment
-                    End="-107,27.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Multicast Saída 1]"
-          TopLeft="175.75,305">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,42"
-              Start="0,0"
-              End="0,34.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,34.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Classificar Saída3]"
-          TopLeft="1026,240">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,33"
-              Start="0,0"
-              End="0,25.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,25.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Classificar Saída2]"
-          TopLeft="955,440">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="42,-8"
-              Start="0,0"
-              End="34.5,-8">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="17,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="17,0"
-                    Point2="21,0"
-                    Point3="21,-4" />
-                  <mssgle:LineSegment
-                    End="21,-4" />
-                  <mssgle:CubicBezierSegment
-                    Point1="21,-4"
-                    Point2="21,-8"
-                    Point3="25,-8" />
-                  <mssgle:LineSegment
-                    End="34.5,-8" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
-          Size="176,42"
-          Id="Package\Carga da Dimensão Empresa\Classificar por coenti"
-          TopLeft="574,562" />
+          Size="183,42"
+          Id="Package\Carga da Dimensão Empresa\Criando atributo Porte"
+          TopLeft="343,638" />
         <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Agregação 12]"
-          TopLeft="777,586.5">
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Coluna Derivada1]"
+          TopLeft="291,659.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-27,0"
+              EndConnector="52,0"
               Start="0,0"
-              End="-19.5,0">
+              End="44.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-19.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="225,42"
-          Id="Package\Carga da Dimensão Empresa\Transformando zeros em nulos"
-          TopLeft="303,548" />
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Classificar Saída4]"
-          TopLeft="574,583">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-46,-14"
-              Start="0,0"
-              End="-38.5,-14">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-19,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-19,0"
-                    Point2="-23,0"
-                    Point3="-23,-4" />
-                  <mssgle:LineSegment
-                    End="-23,-10" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-23,-10"
-                    Point2="-23,-14"
-                    Point3="-27,-14" />
-                  <mssgle:LineSegment
-                    End="-38.5,-14" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="182,42"
-          Id="Package\Carga da Dimensão Empresa\Junção de Mesclagem"
-          TopLeft="71,560" />
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Saída da Junção de Mesclagem1]"
-          TopLeft="518.5,444">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-356.5,116"
-              Start="0,0"
-              End="-356.5,108.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,54" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,54"
-                    Point2="0,58"
-                    Point3="-4,58" />
-                  <mssgle:LineSegment
-                    End="-352.5,58" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-352.5,58"
-                    Point2="-356.5,58"
-                    Point3="-356.5,62" />
-                  <mssgle:LineSegment
-                    End="-356.5,108.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Coluna Derivada]"
-          TopLeft="303,569">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-50,12"
-              Start="0,0"
-              End="-42.5,12">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-21,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-21,0"
-                    Point2="-25,0"
-                    Point3="-25,4" />
-                  <mssgle:LineSegment
-                    End="-25,8" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-25,8"
-                    Point2="-25,12"
-                    Point3="-29,12" />
-                  <mssgle:LineSegment
-                    End="-42.5,12" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="273,42"
-          Id="Package\Carga da Dimensão Empresa\Formatando nome das empresas e grupo"
-          TopLeft="19,640" />
-        <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Saída da Junção de Mesclagem2]"
-          TopLeft="158.75,602">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,38"
-              Start="0,0"
-              End="0,30.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,30.5" />
+                    End="44.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6090,21 +6215,21 @@
         <NodeLayout
           Size="153,42"
           Id="Package\Carga da Dimensão Empresa\Destino OLE DB"
-          TopLeft="372,636" />
+          TopLeft="600,642" />
         <EdgeLayout
-          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Coluna Derivada1]"
-          TopLeft="292,659">
+          Id="Package\Carga da Dimensão Empresa.Paths[Saída de Coluna Derivada2]"
+          TopLeft="526,661">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="80,0"
+              EndConnector="74,0"
               Start="0,0"
-              End="72.5,0">
+              End="66.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="72.5,0" />
+                    End="66.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
