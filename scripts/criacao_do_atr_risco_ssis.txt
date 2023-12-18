@@ -1,0 +1,3 @@
+(DT_STR, 25, 1252)(media_lim_ret <= 188790.00 ? "Pequeno" : media_lim_ret <= 2000000.00 ? "Médio" : "Grande")
+
+(DT_STR, 25, 1252)(lim_ret_fian_loc <= 80000.00 ? "Pequeno" : lim_ret_fian_loc <= 1000000.00 ? "Médio" : "Grande")

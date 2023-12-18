@@ -2,13 +2,13 @@
 <BuildLog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProjectInfo>
     <Name>CargaDataWarehouse</Name>
-    <LastWriteTime>2023-12-14T02:01:30.6925156Z</LastWriteTime>
+    <LastWriteTime>2023-12-17T21:54:54.4000702Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>CargaDataWarehouse.dtsx</Name>
-      <LastWriteTime>2023-12-17T00:15:58.6919167Z</LastWriteTime>
+      <LastWriteTime>2023-12-18T00:01:34.7471046Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

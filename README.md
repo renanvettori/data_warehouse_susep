@@ -8,8 +8,8 @@
         - Limite de Retenção para Fiança Locatícia
     - Atributos:
         - Porte (baseado no Patrimônio Líquido Ajustado)
-        - Nível de Exposição ao Risco de Seguro Garantia (baseado no Limite de Retenção)
-        - Nível de Exposição ao Risco de Fiança Locatícia
+        - Apetite ao Risco de Seguro Garantia (baseado no Limite de Retenção)
+        - Apetite ao Risco de Fiança Locatícia
     - Hierarquias:
         - Grupo Econômico:
             - Níveis: Empresa < Grupo Econômico
@@ -64,3 +64,5 @@
 ![Esquema Power Architect](images\dw_schema_power_architect.png)
 ![Esquema SQL Server](images\dw_schema_sql_server.png)
 ![Quartis Patrimônio Líquido](images\quartis_pl.png)
+![Quartis Fiança Locatícia](images\quartis_fian_loc.png)
+![Quartis Seguro Garantia](images\quartis_seg_garantia.png)

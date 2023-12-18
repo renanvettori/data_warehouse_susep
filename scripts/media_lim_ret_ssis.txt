@@ -1,0 +1,1 @@
+(DT_CY)(ISNULL(lim_ret_seg_publico) && ISNULL(lim_ret_seg_privado) ? NULL(DT_CY) : ISNULL(lim_ret_seg_publico) ? lim_ret_seg_privado : ISNULL(lim_ret_seg_privado) ? lim_ret_seg_publico : ((lim_ret_seg_publico + lim_ret_seg_privado) / 2))
