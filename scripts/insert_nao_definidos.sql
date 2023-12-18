@@ -2,36 +2,28 @@ SET IDENTITY_INSERT [dbo].[dim_empresa] ON;
 
 INSERT INTO [dbo].[dim_empresa]
            ([id_empresa]
-           ,[cod_empresa]
+		   ,[cod_empresa]
            ,[desc_empresa]
-           ,[atr_tipo_dependencia]
-           ,[atr_porte]
-           ,[atr_faixa_retencao]
-           ,[cod_cidade]
-           ,[desc_cidade]
-           ,[cod_estado]
-           ,[desc_estado]
-           ,[cod_regiao]
-           ,[desc_regiao]
-           ,[cod_pais]
-           ,[desc_pais]
            ,[cod_grupo_econ]
-           ,[desc_grupo_econ])
+           ,[desc_grupo_econ]
+           ,[pl_empresa]
+           ,[atr_porte]
+           ,[lim_ret_seg_publico]
+           ,[lim_ret_seg_privado]
+           ,[lim_ret_fian_loc]
+           ,[atr_risco_seg_garantia]
+           ,[atr_risco_fian_loc])
      VALUES
            (0
+		   ,'ND'
            ,'ND'
            ,'ND'
            ,'ND'
+           ,0
            ,'ND'
-           ,'ND'
-           ,'ND'
-           ,'ND'
-           ,'ND'
-           ,'ND'
-           ,'ND'
-           ,'ND'
-           ,'ND'
-           ,'ND'
+           ,0
+           ,0
+           ,0
            ,'ND'
            ,'ND')
 
