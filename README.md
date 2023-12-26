@@ -37,28 +37,33 @@
     - Hierarquias:
         - Calendário:
             - Níveis: Mês < Trimestre < Semestre < Ano
+    - Arquivos:
+        - Ses_seguros.csv
 
 ## Indicadores:
 - **Inputs:**
     - Prêmio Direto
     - Prêmio de Seguros
-    - Prêmio Retido
     - Prêmio Ganho
-    - Prêmios de Riscos Vigentes e Não Emitidos (RVNE)
-    - Sinistro de Seguros
-    - Sinistro Retido
+    - RVNE (Prêmios de Riscos Vigentes e Não Emitidos)
     - Sinistros Ocorridos
+    - Despesa Comercial (Custo de Aquisição)
     - Despesas com Resseguros
     - Receitas com Resseguros
     - PPNG (Provisão de Prêmios não Ganhos)
+    - PPNG RVNE (Provisão de Prêmios não Ganhos de Riscos Vigentes e Não Emitidos)
     - PSL (Provisão de Sinistros a Liquidar)
     - IBNR (Provisão de Sinistros Ocorridos e Não Avisados)
-
+    
 - **Calculados:**
-    - Sinistralidade: [Sinistro Retido]/[Prêmio Ganho]
+    - Sinistralidade: [Sinistros Ocorridos]/[Prêmio Ganho]
     - Lucratividade: [Prêmio Ganho] - [Sinistros Ocorridos]
     - Rentabilidade: ([Lucratividade]/[Prêmio Ganho])*100
     - Resultado de Resseguro ([Receitas com Resseguros] - [Despesas com Resseguros])
+
+- **Arquivos:**
+    - Ses_seguros.csv
+    - ses_provramos.csv
 
 ## Criação do Data Warehouse
 ![Esquema Power Architect](images\dw_schema_power_architect.png)
