@@ -61,9 +61,9 @@ Os dados utilizados para esse projeto são públicos e podem sem baixados no sit
 O modelo foi criado utilizando o SQL Power Architect e o script resultante foi executado no SQL Server 2022, para que fosse carregado mais tarde.
 
 **Esquema Power Architect:**
-![Esquema Power Architect](images\dw_schema_power_architect.png)
+![Esquema Power Architect](images/dw_schema_power_architect.png)
 **Esquema SQL Server 2022:**
-![Esquema SQL Server](images\dw_schema_sql_server.png)
+![Esquema SQL Server](images/dw_schema_sql_server.png)
 O design adotado pelo modelo é estruturado em formato de estrela, onde as tabelas são identificadas por um ID numérico e inteiro, visando otimizar o desempenho das buscas. Além disso, as tabelas dimensionais têm configurada a funcionalidade de incremento automático, permitindo que os IDs sejam gerados e preenchidos de forma automática.
 
 ### Dimensões 📐
@@ -136,35 +136,35 @@ Este é um esboço detalhado da concepção do Data Warehouse, que foi realizada
     - ses_provramos.csv
 
 ## Elaboração dos Fluxos de Carga🔀
-![Fluxo ETL](images\fluxo_etl.png)
+![Fluxo ETL](images/fluxo_etl.png)
 O fluxo completo envolve, primeiramente, o carregamento das tabelas dimensionais de ramo, empresa e tempo, seguido pela carga da tabela de fato. Há também a etapa de exclusão dos dados da tabela de fato em cada execução, dado que as informações das medidas se atualizam com frequência. Essa abordagem facilita o recarregamento da tabela do zero, evitando o acúmulo desnecessário de dados e promovendo maior eficiência no fluxo.
 
 ### Carga da Dimensão Ramo✏️
-![Carga Dimensão Ramo](images\carga_dim_ramo.png)
+![Carga Dimensão Ramo](images/carga_dim_ramo.png)
 Durante esta fase, os dados relacionados aos ramos e seus agrupamentos foram extraídos, compilados e inseridos no Data Warehouse. Adicionalmente, implementou-se o atributo booleano Seguro Garantia, utilizado como critério de seleção para os ramos 0775 e 0776, os quais correspondem aos segmentos do seguro garantia.
 
 ### Carga da Dimensão Empresa🏢
-![Carga Dimensão Empresa 1](images\carga_dim_empresa1.png)
+![Carga Dimensão Empresa 1](images/carga_dim_empresa1.png)
 Neste passo, estabeleceu-se uma conexão com o arquivo Ses_grupos_economicos.csv para obter os dados fundamentais das empresas, como nome e código. Posteriormente, a conexão com o arquivo Ses_pl_margem.csv permitiu a extração do patrimônio líquido das companhias. O principal desafio residia em capturar somente as informações mais atualizadas, uma vez que o banco de dados contém uma coluna de data, e houve variações nas empresas com o mesmo código ao longo do tempo. Para superar essa questão, utilizou-se o recurso de agregação do Integration Services, o qual foi empregado para selecionar exclusivamente os códigos de empresa com a data mais recente.
 
-![Carga Dimensão Empresa 2](images\carga_dim_empresa2.png)
+![Carga Dimensão Empresa 2](images/carga_dim_empresa2.png)
 Nesta fase, desenvolveu-se o atributo Porte, fundamentado nos valores de patrimônio líquido. A classificação do porte das empresas foi dividida em quatro categorias: Iniciante, Intermediário, Consolidado e Líder. Esta segmentação baseou-se na distribuição dos dados em quatro quartis. A determinação dos valores específicos foi realizada por meio de um script SQL aplicado a uma tabela de teste, disponível na tabela 'scripts' deste repositório, que inclui uma amostra dos dados. Contudo, esses parâmetros são flexíveis e podem ser ajustados conforme a necessidade do usuário.
 
-![Carga Dimensão Empresa 3](images\carga_dim_empresa3.png)
+![Carga Dimensão Empresa 3](images/carga_dim_empresa3.png)
 Neste ponto, realizou-se a conexão com o arquivo Ses_limite_ret.csv para capturar as informações relativas ao limite de retenção especificamente para os ramos de seguro-garantia (ramos 0775 e 0776) e fiança locatícia (ramo 0746). Foi selecionado apenas as linhas que continham as datas mais atuais. Após essa seleção, os dados foram integrados com os demais arquivos CSV.
 
-![Carga Dimensão Empresa 4](images\carga_dim_empresa4.png)
+![Carga Dimensão Empresa 4](images/carga_dim_empresa4.png)
 Finalmente, os atributos referentes ao apetite ao risco foram determinados, sendo categorizados em Pequeno, Médio e Grande. A definição dos intervalos de valores seguiu um método similar ao utilizado para o atributo Porte, com a distribuição dos dados em três quartis. No entanto, esses valores são ajustáveis de acordo com as preferências do usuário. Os dados resultantes foram então armazenados no Data Warehouse.
 
 ### Carga da Dimensão Tempo⏳
-![Carga Dimensão Tempo](images\carga_dim_tempo.png)
+![Carga Dimensão Tempo](images/carga_dim_tempo.png)
 Na dimensão tempo, as datas foram obtidas a partir do arquivo que inclui os dados para a tabela de fato. Além disso, foram gerados os códigos e os descritores correspondentes ao ano, mês, trimestre e semestre. Por fim, essas informações foram registradas no Data Warehouse.
 
 ### Carga da Tabela de Fato📈
-![Carga Fato](images\carga_fato1.png)
+![Carga Fato](images/carga_fato1.png)
 Para realizar o carregamento da tabela de fato, foi preciso utilizar dois arquivos provenientes da base de dados pública para a extração de todas as medidas relevantes. O processo começa com a seleção específica dos ramos de interesse, seguida pela conversão dos dados para o formato apropriado. Em seguida, aplica-se um filtro para considerar apenas os dados a partir de 2018, evitando assim o excesso de carga na base de dados. Os arquivos são então unificados através de uma operação de junção, e na fase subsequente, os dados são agrupados segundo os códigos de tempo, empresa e ramo. Isso é necessário porque a base de dados pode apresentar múltiplas entradas para as mesmas três dimensões, nesse caso, o valor das medidas é somado.
 
-![Carga Fato](images\carga_fato2.png)
+![Carga Fato](images/carga_fato2.png)
 Finalmente, a etapa conclusiva do carregamento da tabela de fato envolve a identificação dos IDs nas dimensões, realizada por meio de uma busca (lookup) utilizando os códigos naturais encontrados tanto nos arquivos de origem quanto nas dimensões previamente carregadas. Adicionalmente, é aplicada a regra de atribuir o valor zero na ausência de um ID correspondente. Após esta operação, os dados são efetivamente transferidos para o Data Warehouse.
 
 ## Exportação da Base de Dados📤
